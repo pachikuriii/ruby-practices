@@ -1,20 +1,16 @@
 # frozen_string_literal: true
 
 class Shot
-  def initialize(shots)
-    @shots = shots.split(',')
+  def initialize(shot)
+    @shot = shot
   end
 
   def convert_to_num_if_strike?
-    shots = []
-    @shots.each do |shot|
-      if shot == 'X'
-        shots << 10
-        shots << 0
-      else
-        shots << shot.to_i
-      end
-    end
-    shots
+    @shot = if @shot == 'X'
+              10
+            else
+              @shot.to_i
+            end
+    @shot
   end
 end
