@@ -8,14 +8,14 @@ def main
   shots = []
   ARGV[0].split(',').each do |num|
     if num == 'X'
-      shots << 'X'
-      shots << 0
+      shots << Shot.new('X')
+      shots << Shot.new(0)
     else
-      shots << num
+      shots << Shot.new(num)
     end
   end
-  shots = shots.map { |shot| Shot.new(shot).convert_to_num_if_strike? }
-  frames = shots.each_slice(2).to_a.each { |shot| Frame.new(shot) }
+
+  frames = shots.each_slice(2).to_a.map { |shot_array| Frame.new(shot_array) }
   game = Game.new(frames)
   puts game.calc_total_score
 end
