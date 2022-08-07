@@ -5,11 +5,7 @@ class Shot
     @shot = shot
   end
 
-  def convert_to_num
-    if @shot == 'X'
-      10
-    else
-      @shot.to_i
-    end
+  def score
+    @shot == 'X' ? 10 : @shot.to_i
   end
 end
