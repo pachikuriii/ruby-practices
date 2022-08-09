@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-STRIKE = 10
-SPARE = 10
 class Frame
+  FULL_MARKS = 10
+
   def initialize(shots)
     @first_shot = shots[0]
     @second_shot = shots[1]
   end
 
   def strike?
-    @first_shot.score == STRIKE
+    @first_shot.score == FULL_MARKS
   end
 
   def spare?
-    @first_shot.score + @second_shot.score == SPARE
+    @first_shot.score + @second_shot.score == FULL_MARKS
   end
 
   def first_shot_score

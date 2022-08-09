@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-STRIKE_SCORE = 10
-SPARE_SCORE = 10
-FRAMES_TOTAL_NUM = 10
 class Game
+  FULL_MARKS = 10
+  FRAMES_TOTAL_NUM = 10
+
   def initialize(frames)
     @frames = frames
   end
@@ -27,10 +27,10 @@ class Game
   def calc_strike_shot(next_frame, after_the_next_frame)
     score = 0
     score += after_the_next_frame.first_shot_score if next_frame.strike?
-    score + STRIKE_SCORE + next_frame.total_score
+    score + FULL_MARKS + next_frame.total_score
   end
 
   def calc_spare_shot(next_frame)
-    SPARE_SCORE + next_frame.first_shot_score
+    FULL_MARKS + next_frame.first_shot_score
   end
 end
