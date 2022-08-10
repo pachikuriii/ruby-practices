@@ -33,7 +33,7 @@ class GameTest < Minitest::Test
   end
 
   def test_calc_spare_shot
-    next_frame = Frame.new([Shot.new(5), Shot.new('1')])
+    next_frame = Frame.new([Shot.new('5'), Shot.new('1')])
     assert_equal @game.send(:calc_spare_shot, next_frame), 15
   end
 end
