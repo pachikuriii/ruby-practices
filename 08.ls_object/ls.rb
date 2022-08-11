@@ -1,8 +1,7 @@
 # frozen_string_literal: true
+
 require 'etc'
 require 'optparse'
-ROW_NUM = 3
-ROW_MAX_WIDTH = 24
 
 require_relative 'file'
 require_relative 'stat'
@@ -11,14 +10,12 @@ require_relative 'display'
 def main
   params = ARGV.getopts('alr')
   all_files = get_all_files(params).map { |file| File.new(file) }
-  stats = all_files.map{|file| Stat.new(file.instance_variable_get(:@file))} if params['l']
- 
+  stats = all_files.map { |file| Stat.new(file.instance_variable_get(:@file)) }
   if params['l']
-    display = Display.new(stats)
+    Display.new(stats).l_option
   else
-    display = Display.new(all_files)
+    Display.new(stats).other_options
   end
-  display.l_option
 end
 
 def get_all_files(params)

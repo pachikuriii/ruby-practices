@@ -1,45 +1,44 @@
 # frozen_string_literal: true
 
 class Stat
-  require 'etc'
   SIX_MONTH = 15_552_000
   def initialize(file)
     @stat = File.stat(file)
     @file = file
   end
-  
+
   def link
-   @stat.nlink
+    @stat.nlink
   end
 
   def name
-   Etc.getpwuid(@stat.uid).name
+    Etc.getpwuid(@stat.uid).name
   end
 
-   def group
-    Etc.getgrgid(@stat.gid).name 
+  def group
+    Etc.getgrgid(@stat.gid).name
   end
 
   def size
     @stat.size
   end
-  
+
   def month
     @stat.mtime.mon
   end
-  
+
   def day
     @stat.mtime.mday
   end
-  
+
   def time
     detailed_time = @stat.mtime
-      today = Time.new
-      time = if today - detailed_time > SIX_MONTH
-               "  #{detailed_time.year}"
-             else
-               " #{detailed_time.strftime('%H:%M')}"
-             end
+    today = Time.new
+    time = if today - detailed_time > SIX_MONTH
+             "  #{detailed_time.year}"
+           else
+             " #{detailed_time.strftime('%H:%M')}"
+           end
     time.to_s.rjust(6)
   end
 
@@ -50,9 +49,13 @@ class Stat
   def file_name
     @file
   end
-  
+
+  def blocks
+    @stat.blocks
+  end
+
   private
-  
+
   def file_types_nums
     {
       '001' => 'p',
@@ -62,9 +65,9 @@ class Stat
       '010' => '-',
       '012' => 'l',
       '014' => 's'
-  }.freeze
+    }
   end
-  
+
   def file_permissions_nums
     {
       '00' => '---',
@@ -75,12 +78,12 @@ class Stat
       '05' => 'r-x',
       '06' => 'rw-',
       '07' => 'rwx'
-  }.freeze
+    }
   end
-  
+
   def convert_to_letter(mode_num)
     formatted_num = mode_num.rjust(7, '0')
-    file_type = file_types_nums[(formatted_num[0, 3]).to_s] 
+    file_type = file_types_nums[(formatted_num[0, 3]).to_s]
     owner_permission = file_permissions_nums[formatted_num[3, 2].to_s]
     group_permission = file_permissions_nums["0#{formatted_num[5, 1]}"]
     other_permission = file_permissions_nums["0#{formatted_num[6, 1]}"]
