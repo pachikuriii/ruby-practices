@@ -5,16 +5,17 @@ require 'optparse'
 
 require_relative 'file'
 require_relative 'stat'
-require_relative 'display'
+require_relative 'l_option'
+require_relative 'other_options'
 
 def main
   params = ARGV.getopts('alr')
   all_files = get_all_files(params).map { |file| File.new(file) }
   stats = all_files.map { |file| Stat.new(file.instance_variable_get(:@file)) }
   if params['l']
-    Display.new(stats).l_option
+    LOption.new(stats).show
   else
-    Display.new(stats).other_options
+    OtherOptions.new(stats).show
   end
 end
 
