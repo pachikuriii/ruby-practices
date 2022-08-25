@@ -14,36 +14,14 @@ class LOption
 
   private
 
+  ["link", "name", "group", "size", "month", "day", "time"].each do |type|
+    define_method(type) {
+      adjust_blank(@stats.map(&:"#{type}"), 1)
+    }
+  end
+
   def file_mode
     @stats.map(&:file_mode)
-  end
-
-  def link
-    adjust_blank(@stats.map(&:link), 2)
-  end
-
-  def name
-    adjust_blank(@stats.map(&:name), 1)
-  end
-
-  def group
-    adjust_blank(@stats.map(&:group), 2)
-  end
-
-  def size
-    adjust_blank(@stats.map(&:size), 2)
-  end
-
-  def month
-    adjust_blank(@stats.map(&:month), 2)
-  end
-
-  def day
-    adjust_blank(@stats.map(&:day), 1)
-  end
-
-  def time
-    adjust_blank(@stats.map(&:time), 0)
   end
 
   def file_name
