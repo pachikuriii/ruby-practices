@@ -12,11 +12,8 @@ def main
   params = ARGV.getopts('alr')
   all_files = get_all_files(params).map { |file| File.new(file) }
   stats = all_files.map { |file| Stat.new(file.instance_variable_get(:@file)) }
-  if params['l']
-    LOption.new(stats).show
-  else
-    OtherOptions.new(stats).show
-  end
+  LOption.new(stats, params).show
+  OtherOptions.new(stats, params).show
 end
 
 def get_all_files(params)

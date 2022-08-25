@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class LOption
-  def initialize(stats)
+  def initialize(stats, params)
     @stats = stats
+    @params = params
   end
 
   def show
+    return unless @params['l']
+
     puts "total #{total_blocks}"
     file_mode.zip(link, name, group, size, month, day, time, file_name).each do |row|
       puts row.join
@@ -14,10 +17,10 @@ class LOption
 
   private
 
-  ["link", "name", "group", "size", "month", "day", "time"].each do |type|
-    define_method(type) {
+  %w[link name group size month day time].each do |type|
+    define_method(type) do
       adjust_blank(@stats.map(&:"#{type}"), 1)
-    }
+    end
   end
 
   def file_mode

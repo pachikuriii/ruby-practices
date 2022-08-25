@@ -3,11 +3,15 @@
 class OtherOptions
   ROW_NUM = 3
   ROW_MAX_WIDTH = 24
-  def initialize(stats)
+
+  def initialize(stats, params)
     @stats = stats
+    @params = params
   end
 
   def show
+    return if @params['l']
+
     transpose_line_column.each do |column|
       puts column.join
     end
