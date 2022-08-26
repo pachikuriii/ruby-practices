@@ -2,17 +2,14 @@
 
 require 'etc'
 require 'optparse'
-
 require_relative 'stat'
-require_relative 'l_option'
-require_relative 'other_options'
+require_relative 'display'
 
 def main
   params = ARGV.getopts('alr')
   all_files = get_all_files(params).map { |file| file }
   stats = all_files.map { |file| Stat.new(file) }
-  LOption.new(stats, params).show
-  OtherOptions.new(stats, params).show
+  Display.new(stats, params).show
 end
 
 def get_all_files(params)
