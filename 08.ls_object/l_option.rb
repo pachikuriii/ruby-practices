@@ -17,9 +17,17 @@ class LOption
 
   private
 
-  %w[link name group size month day time].each do |type|
+  [
+    ['link', 2],
+    ['name', 1],
+    ['group', 2],
+    ['size', 2],
+    ['month', 2],
+    ['day', 1],
+    ['time', 0]
+  ].each do |type, space_num|
     define_method(type) do
-      adjust_blank(@stats.map(&:"#{type}"), 1)
+      adjust_blank(@stats.map(&:"#{type}"), space_num)
     end
   end
 
