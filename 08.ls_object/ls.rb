@@ -3,13 +3,13 @@
 require 'etc'
 require 'optparse'
 require_relative 'stat'
-require_relative 'file_info'
-require_relative 'file_name'
+require_relative 'entries_with_info'
+require_relative 'entries'
 def main
   params = ARGV.getopts('alr')
   all_files = get_all_files(params).map { |file| file }
   stats = all_files.map { |file| Stat.new(file) }
-  display = params['l'] ? FileInfo.new(stats) : FileName.new(stats)
+  display = params['l'] ? EntriesWithInfo.new(stats) : Entries.new(stats)
   display.show
 end
 

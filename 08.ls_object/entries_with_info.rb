@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'stat'
-class FileInfo
+class EntriesWithInfo
   def initialize(stats)
     @stats = stats
   end
