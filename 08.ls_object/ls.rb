@@ -3,13 +3,13 @@
 require 'etc'
 require 'optparse'
 require_relative 'stat'
-require_relative 'entries_with_info'
-require_relative 'entries'
+require_relative 'long_format'
+require_relative 'multi_column_output'
 def main
   params = ARGV.getopts('alr')
   all_files = get_all_files(params).map { |file| file }
   stats = all_files.map { |file| Stat.new(file) }
-  display = params['l'] ? EntriesWithInfo.new(stats) : Entries.new(stats)
+  display = params['l'] ? LongFormat.new(stats) : MultiColumnOutput.new(stats)
   display.show
 end
 

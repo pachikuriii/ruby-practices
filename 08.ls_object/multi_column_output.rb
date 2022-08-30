@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'stat'
-class Entries
+class MultiColumnOutput
   ROW_NUM = 3
   ROW_MAX_WIDTH = 24
   def initialize(stats)
